@@ -2,11 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import HomePage from './homepage/HomePage';
+import Offline from './offline/Offline'
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <HomePage />
+    {/* <HomePage /> */}
+    <Offline />
     
   </React.StrictMode>,
   document.getElementById('root')
