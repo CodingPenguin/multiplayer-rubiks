@@ -52,11 +52,13 @@ const Stopwatch = (props) => {
         props.socket.emit('userStatus', 'Stopped')
         props.socket.on("gameResults", data => {
             console.log(data)
-            if (data[2] === props.socket.id) {
-                ReactDOM.render(<Confetti width={window.width} height={window.height} recycle={false} tweenDuration={10000}></Confetti>)
+            console.log(props.socket.id)
+            console.log(data[0])
+            if (data[0] === props.socket.id) {
+                // ReactDOM.render(<Confetti width={window.width} height={window.height} recycle={false} tweenDuration={10000}></Confetti>)
                 alert('You won!! Congratulations.')
             } else {
-                alert('You lost against someone who had a time of ' + data[0])
+                alert('You lost against someone who had a time of ' + data[1])
             }
         })
       } 

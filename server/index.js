@@ -93,7 +93,7 @@ io.on('connection', (socket) => {
 
 
     function checkIfGameReady(newStatus) {
-        if (newStatus === "Ready" || newStatus == "Check") {
+        if (newStatus === "Ready" || newStatus === "Check") {
             if (newStatus === "Ready") {
                 readyCount++;
                 io.emit('readyUpdater', readyCount)
@@ -153,7 +153,7 @@ io.on('connection', (socket) => {
       userAssociations.push( { "socketID": socketID, time: userTime, name:"N/A"} )
         
         // console.log(`readyCount = ${readyCount}; connectedUserCount = ${connectedUserCount} and userAssociations.length = ${userAssociations.length}`)
-        if(readyCount === 0 && connectedUserCount === userAssociations.length) {
+        if(userAssociations.length === 2) {
             console.log("---------------- GAME RESULTS ----------------")
             console.log(userAssociations)
             console.log("---------------------------------------------")
