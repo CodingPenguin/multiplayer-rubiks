@@ -1,30 +1,48 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import Stopwatch from './stopwatch/Stopwatch';
 import './Offline.css';
-import { useState } from 'react';
+
+import { Link } from "react-router-dom";
 
 function Offline() {
   const [scramble, setScramble] = useState();
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     let fetchScramble = makeScramble().join(' ')
     setScramble(fetchScramble);
+    console.log('hi')
   }, []);
 
   return (
-    <div>
-        <div className='nav'>
-            <h1>title</h1>
+    <div class='wrapper'>
+        <div className='no-footer'>
+            <div className='header'>
+                <div className='arrow'>
+                    <button>
+                        <Link to='/'>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="2.5%" fill="#444" className="bi bi-arrow-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                            </svg>
+                        </Link>
+                    </button>
+                </div>
+                <div className='title-div'>
+                    <h1 className='title'>Single Player</h1>
+                </div>
+            </div>
+            <div className='stopwatch'>
+                <Stopwatch />
+            </div>
         </div>
-        <div className='stopwatch'>
-
-        </div>
-        <div className='scramble'>
-            <p>hello {scramble}</p>
+        <div className='footer'>
+            <div className='scramble'>
+                <p>{scramble}<br /><span>(click enter to rescramble)</span></p>
+            </div>
         </div>
     </div>
   );
-}
-
+}   
 function makeScramble() {
     var options = ["F", "F2", "F'", "R", "R2", "R'", "U", "U2", "U'", "B", "B2", "B'", "L", "L2", "L'", "D", "D2", "D'"]
     var numOptions = [0, 1, 2, 3, 4, 5] // 0 = F, 1 = R, 2 = U, 3 = B, 4 = L, 5 = D
@@ -34,12 +52,12 @@ function makeScramble() {
   
     while (bad) {
         scramble = []
-        for (var i = 0; i < 20; i++) {
+        for (let i = 0; i < 20; i++) {
             scramble.push(numOptions[getRandomInt(6)])
         }
         // check if moves directly next to each other involve the same letter
-        for (var i = 0; i < 20 - 1; i++) {
-            if (scramble[i] == scramble[i + 1]) {
+        for (let i = 0; i < 20 - 1; i++) {
+            if (scramble[i] === scramble[i + 1]) {
                 bad = true
                 break
             } else {

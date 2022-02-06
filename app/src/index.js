@@ -4,11 +4,17 @@ import './index.css';
 import HomePage from './homepage/HomePage';
 import Offline from './offline/Offline'
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <HomePage /> */}
-    <Offline />
+    <BrowserRouter>
+        <Routes>
+            <Route path='/' element={<HomePage/>}></Route>
+            <Route path='/solo' element={<Offline />}></Route>
+            
+        </Routes> 
+    </BrowserRouter>    
     
   </React.StrictMode>,
   document.getElementById('root')

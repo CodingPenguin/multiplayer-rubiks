@@ -7,7 +7,7 @@
     height: 100%;
 }
 
-.playerOptions button {
+.playerOptions button, .solo {
     height: 100%;
     width: 100%;
 }
