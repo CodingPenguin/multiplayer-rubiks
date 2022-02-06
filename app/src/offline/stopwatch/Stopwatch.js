@@ -23,6 +23,7 @@ const Stopwatch = () => {
     } else {
         minutes = "";
     }
+
     if (parseInt(minutes.slice(0, 1)) > 0 && parseInt("" + String(Math.floor((time / 1000) % 60)).slice(-2)) < 10) {
       seconds = "0" + String(Math.floor((time / 1000) % 60)).slice(-2) + ".";
     } else {
@@ -31,7 +32,7 @@ const Stopwatch = () => {
 
     let timerStarted = false;
     const [started, setStarted] = useState(false)
-    // const [timerJustStopped, setTimerJustStopped] = useState(false);
+    
     const handleKeyDown = ({ keyName}) => {  
       console.log(timerStarted + ' timerStarted')
       if (started === true) {
@@ -66,7 +67,7 @@ const Stopwatch = () => {
           <span>{timerStarted}</span>
           <span>{minutes}</span>
           <span>{seconds}</span>
-          <span>{("" + ((time / 10) % 100)).slice(-2)}</span>
+          <span>{("" + ((time / 10) % 100))}</span>
         </div> 
       </div>
     );
