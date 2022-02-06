@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Stopwatch from './stopwatch/Stopwatch';
 import './Online.css';
+import ReactDOM from 'react-dom';
 
 import { Link } from "react-router-dom";
 
@@ -19,14 +20,19 @@ function Online(props) {
         data = data.replace(/,/g, ' ');
         setScramble(data)
     }) 
-    props.socket.on("gameResults", data => {
-        if (data[1] === props.socket.id) {}
-    })
+    // props.socket.on("gameResults", data => { todo: if this is working in Stopwatch.js, take this out. otherwise, leave it in.
+    //     console.log(data)
+    //     if (data[2] === props.socket.id) {
+    //         ReactDOM.render(<Confetti width={window.width} height={window.height} recycle={false} tweenDuration={10000}></Confetti>)
+    //         alert('You won!! Congratulations.')
+    //     } else {
+    //         alert('You lost against someone who had a time of ' + data[0])
+    //     }
+    // })
 
   }
   return (
     <div class='wrapper'>
-        <Confetti width={window.width} height={window.height} recycle={false} tweenDuration={10000}></Confetti>
         <div className='no-footer'>
             <div className='header'>
                 <div className='arrow'>

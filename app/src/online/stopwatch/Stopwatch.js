@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useKeyDown, useKeyUp } from 'react-keyboard-input-hook';
+import Confetti from 'react-confetti';
+import ReactDOM from 'react-dom';
+
 
 const Stopwatch = (props) => {
     const [time, setTime] = useState(0);
@@ -45,8 +48,17 @@ const Stopwatch = (props) => {
         }
         
         let solveTime = (minutes + parseInt(seconds.slice(0, seconds.length))) + (((time / 10) % 100)/100);
-        console.log(solveTime);
         props.socket.emit('userTime', solveTime)
+        props.socket.emit('userStatus', 'Stopped')
+        props.socket.on("gameResults", data => {
+            console.log(data)
+            if (data[2] === props.socket.id) {
+                ReactDOM.render(<Confetti width={window.width} height={window.height} recycle={false} tweenDuration={10000}></Confetti>)
+                alert('You won!! Congratulations.')
+            } else {
+                alert('You lost against someone who had a time of ' + data[0])
+            }
+        })
       } 
       else if (keyName === 'Enter') {
         window.location.reload(false);
