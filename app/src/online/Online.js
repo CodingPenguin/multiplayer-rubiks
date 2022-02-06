@@ -6,30 +6,23 @@ import { Link } from "react-router-dom";
 
 import Confetti from 'react-confetti';
 
-import socketIOClient from "socket.io-client";
-const ENDPOINT = "localhost:8000";
-let socket;
-
-function Online() {
+function Online(props) {
   const [scramble, setScramble] = useState("(click the stopwatch to begin)");
 
   useEffect(() => {
-    socket = socketIOClient(ENDPOINT);
   }, [scramble]);
 
-
   const handleSocket = () => {
-    socket.emit("userStatus", "Ready")
-    socket.on("scrambleReciever", data => {
-        socket.emit("userStatus", "Playing")
+    props.socket.emit("userStatus", "Ready")
+    props.socket.on("scrambleReciever", data => {
+        props.socket.emit("userStatus", "Playing")
         data = data.replace(/,/g, ' ');
-        console.log(data)
         setScramble(data)
     }) 
-    return () => {
-        // socket.emit("userStatus", "Stopped");
-        socket.disconnect();
-    }
+    props.socket.on("gameResults", data => {
+        if (data[1] === props.socket.id) {}
+    })
+
   }
   return (
     <div class='wrapper'>
@@ -50,7 +43,7 @@ function Online() {
                 </div>
             </div>
             <div className='stopwatch' onClick={handleSocket}>
-                <Stopwatch />
+                <Stopwatch socket={props.socket}/>
             </div>
         </div>
         <div className='footer'>

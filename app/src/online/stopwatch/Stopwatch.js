@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useKeyDown, useKeyUp } from 'react-keyboard-input-hook';
 
-const Stopwatch = () => {
+const Stopwatch = (props) => {
     const [time, setTime] = useState(0);
     const [running, setRunning] = useState(false);
     useEffect(() => {
@@ -33,18 +33,33 @@ const Stopwatch = () => {
     let timerStarted = false;
     const [started, setStarted] = useState(false)
     
-    const handleKeyDown = ({ keyName }) => {  
-      console.log(timerStarted + ' timerStarted')
+    const handleKeyDown = ({ keyName}) => {  
       if (started === true) {
         setRunning(false);
-        setStarted(false);
+        setStarted(false)
+        console.log(minutes)
+        if (minutes !== "") {
+            minutes = parseInt(minutes.slice(0, minutes.length)) * 60
+        } else {
+            minutes = 0
+        }
+        
+        let solveTime = (minutes + parseInt(seconds.slice(0, seconds.length))) + (((time / 10) % 100)/100);
+        console.log(solveTime);
+        props.socket.emit('userTime', solveTime)
       } 
+      else if (keyName === 'Enter') {
+        window.location.reload(false);
+      }
     }
 
     const handleKeyRelease = ({ keyName }) => {
         if (started === true && keyName === 'Space') {
           setRunning(false)
           setStarted(false)
+        //   let solveTime = ((parseInt(minutes.slice(0, -1)) * 60) + parseInt(seconds.slice(0, -1))) + (((time / 10) % 100)/1000);
+        //   console.log(solveTime);
+        //   props.socket.emit('userTime', solveTime)
         }
         else if (started === false && keyName === 'Space') {
           setTime(0);
