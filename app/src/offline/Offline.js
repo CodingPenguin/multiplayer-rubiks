@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 function Offline() {
   const [scramble, setScramble] = useState();
-  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     let fetchScramble = makeScramble().join(' ')
