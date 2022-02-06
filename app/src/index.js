@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import HomePage from './homepage/HomePage';
-import Offline from './offline/Offline'
+import Offline from './offline/Offline';
+import Online from './online/Online';
+
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -12,7 +14,7 @@ ReactDOM.render(
         <Routes>
             <Route path='/' element={<HomePage/>}></Route>
             <Route path='/solo' element={<Offline />}></Route>
-            
+            <Route path='/multiplayer' element={<Online />}></Route>
         </Routes> 
     </BrowserRouter>    
     
